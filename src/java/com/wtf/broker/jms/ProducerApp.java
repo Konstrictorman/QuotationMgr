@@ -1,5 +1,7 @@
 package com.wtf.broker.jms;
 
+import java.util.HashMap;
+
 import javax.jms.JMSException;
 
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class ProducerApp {
     	ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/producer-jms-context.xml", ProducerApp.class);
         SimpleMessageProducer producer = (SimpleMessageProducer) context.getBean("messageProducer");
         LOG.info("Enviando mensajes a al tema");
-        producer.sendMessages(null);
+        producer.sendMessages("CAMISAS", new HashMap());
     }
     
 }

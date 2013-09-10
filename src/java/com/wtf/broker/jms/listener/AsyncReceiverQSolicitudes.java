@@ -1,10 +1,5 @@
 package com.wtf.broker.jms.listener;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.Map;
-
 import javax.jms.JMSException;
 
 import org.slf4j.Logger;
@@ -32,24 +27,10 @@ public class AsyncReceiverQSolicitudes  {
 		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/producer-jms-context.xml", ProducerApp.class);
         SimpleMessageProducer producer = (SimpleMessageProducer) context.getBean("messageProducer");
         LOG.info("Enviando mensajes a los proveedores");
-        producer.sendMessages(solicitud);
+        producer.sendMessages("ZAPATOS",solicitud);        
+        producer.sendMessages("CAMISAS",solicitud);
+        producer.sendMessages("PANTALONES",solicitud);
         
 	}
-
-	public void processMessage(byte[] message) throws IOException, ClassNotFoundException {
-		ByteArrayInputStream in = new ByteArrayInputStream(message);
-		ObjectInputStream is = new ObjectInputStream(in);
-		is.readObject();
-		LOG.info("Consumed bytes message number {}", message);
-	}
-
-	public void processMessage(Map message) {
-		LOG.info("Consumed map message number {}", message);
-	}
-
-	public void processMessage(Object message) {
-		LOG.info("Consumed object message number {}", message);
-	}
-
 	
 }
