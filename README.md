@@ -1,0 +1,4 @@
+QuotationMgr
+============
+
+Gestor de cotizaciones
