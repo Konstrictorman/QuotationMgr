@@ -5,14 +5,19 @@
 package com.wtf.quotation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import org.apache.log4j.Logger;
+
+import com.wtf.quotation.domain.Cotizacion;
+import com.wtf.quotation.domain.DetalleCotizacion;
+import com.wtf.quotation.domain.DetalleSolicitudCotizacion;
+import com.wtf.quotation.domain.Item;
+import com.wtf.quotation.domain.Proveedor;
+import com.wtf.quotation.domain.SolicitudCotizacion;
 
 /**
  *
@@ -40,7 +45,8 @@ public class GestorCotizaciones {
         return instance;
     }
     
-    public void registrarSolicitud(SolicitudCotizacion solicitud) {
+    @SuppressWarnings("rawtypes")
+	public void registrarSolicitud(SolicitudCotizacion solicitud) {
         List cotizaciones = new ArrayList<Cotizacion>();
         solicitudes = new TreeMap<SolicitudCotizacion, List<Cotizacion>>();
         solicitudes.put(solicitud, cotizaciones);        
@@ -52,7 +58,7 @@ public class GestorCotizaciones {
             throw new IllegalArgumentException("No existe solicitud con id: "+idSolicitud);
         }
         if (!solicitud.isOpen()) {
-            throw new IllegalStateException("La solicitud con id: "+idSolicitud+" ya est√° cerrada");
+            throw new IllegalStateException("La solicitud con id: "+idSolicitud+" ya est· cerrada");
         }
         List<Cotizacion> cotizaciones = solicitudes.get(solicitud);
         return cotizaciones;
@@ -69,7 +75,7 @@ public class GestorCotizaciones {
             throw new IllegalArgumentException("No existe solicitud con id: "+id);
         }
         if (!solicitud.isOpen()) {
-            throw new IllegalStateException("La solicitud con id: "+id+" ya est√° cerrada");
+            throw new IllegalStateException("La solicitud con id: "+id+" ya est· cerrada");
         }
         List<DetalleSolicitudCotizacion> detallesSolicitud = solicitud.getDetalles();
         List<Cotizacion> cotizaciones = getCotizacionesBySolicitudId(id);
@@ -118,21 +124,53 @@ public class GestorCotizaciones {
     }
     
     private void initGeneralItems() {
-        generalItems.add(new Item(101, "Botas di√©lectricas", 100, "RF:AD522"));
+    	generalItems.clear();
+        generalItems.add(new Item(101, "Botas diÈlectricas", 100, "RF:AD522"));
         generalItems.add(new Item(102, "Botas industriales", 100, "RF:DYX87"));
         generalItems.add(new Item(103, "Botas militares", 100, "RF:RHS53"));
         generalItems.add(new Item(104, "Zapato casual negro", 100, "RF:ASR65"));
-        generalItems.add(new Item(105, "Zapato casual marr√≥n", 100, "RF:XAB72"));
-        generalItems.add(new Item(201, "Pantal√≥n pescador", 200, "RF:BA572"));
-        generalItems.add(new Item(202, "Pantal√≥n industrial", 200, "RF:5FYXR7"));
-        generalItems.add(new Item(203, "Pantal√≥n lino", 200, "RF:5RH5T3"));
-        generalItems.add(new Item(204, "Pantal√≥n drill", 200, "RF:9DARF5"));
+        generalItems.add(new Item(105, "Zapato casual marrÛn", 100, "RF:XAB72"));
+        generalItems.add(new Item(201, "PantalÛn pescador", 200, "RF:BA572"));
+        generalItems.add(new Item(202, "PantalÛn industrial", 200, "RF:5FYXR7"));
+        generalItems.add(new Item(203, "PantalÛn lino", 200, "RF:5RH5T3"));
+        generalItems.add(new Item(204, "PantalÛn drill", 200, "RF:9DARF5"));
         generalItems.add(new Item(205, "Jean Levis 501", 200, "RF:8XB7O2"));
         generalItems.add(new Item(301, "Camisa manga larga cuadros", 300, "RF:C88572"));
-        generalItems.add(new Item(302, "Camisa manga larga l√≠neas verticales", 300, "RF:C88YXR7"));
-        generalItems.add(new Item(303, "Camisa manga larga l√≠neas horizontales", 300, "RF:C98H5T3"));
+        generalItems.add(new Item(302, "Camisa manga larga lÌneas verticales", 300, "RF:C88YXR7"));
+        generalItems.add(new Item(303, "Camisa manga larga lÌneas horizontales", 300, "RF:C98H5T3"));
         generalItems.add(new Item(304, "Camisa manga larga blanca", 300, "RF:C85ARF5"));
         generalItems.add(new Item(305, "Camisa manga corta blanca", 300, "RF:C8X7O2D"));        
+    }
+    
+    public SolicitudCotizacion getSolicitud (int id){
+        initGeneralItems();
+       
+        SolicitudCotizacion sc = new SolicitudCotizacion(id);
+        Item i1 = GestorCotizaciones.generalItems.get(2);
+        Item i2 = GestorCotizaciones.generalItems.get(3);
+        Item i3 = GestorCotizaciones.generalItems.get(4);
+        Item i4 = GestorCotizaciones.generalItems.get(7);
+        Item i5 = GestorCotizaciones.generalItems.get(8);
+        Item i6 = GestorCotizaciones.generalItems.get(9);        
+        
+        DetalleSolicitudCotizacion dsc1 = new DetalleSolicitudCotizacion(1, sc, i1, 3);
+        DetalleSolicitudCotizacion dsc2 = new DetalleSolicitudCotizacion(2, sc, i2, 10);        
+        DetalleSolicitudCotizacion dsc3 = new DetalleSolicitudCotizacion(3, sc, i3, 5);        
+        DetalleSolicitudCotizacion dsc4 = new DetalleSolicitudCotizacion(4, sc, i4, 3);
+        DetalleSolicitudCotizacion dsc5 = new DetalleSolicitudCotizacion(5, sc, i5, 1);
+        DetalleSolicitudCotizacion dsc6 = new DetalleSolicitudCotizacion(6, sc, i6, 1);
+        
+        List<DetalleSolicitudCotizacion> detallesSolicitud = new ArrayList<DetalleSolicitudCotizacion>();
+        detallesSolicitud.add(dsc1);
+        detallesSolicitud.add(dsc2);
+        detallesSolicitud.add(dsc3);
+        detallesSolicitud.add(dsc4);
+        detallesSolicitud.add(dsc5);
+        detallesSolicitud.add(dsc6);
+        
+        sc.setDetalles(detallesSolicitud);
+        
+        return sc;
     }
     
     

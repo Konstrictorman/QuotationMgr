@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/conf"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-core-5.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-protobuf-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/ant-1.6.5.jar"/>
+	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-core-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-configuration-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-2.2.jar"/>
+	<classpathentry kind="lib" path="lib/fusemq-leveldb-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-jms_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/guava-10.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/guice-multibindings-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-core-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/hawtbuf-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/hawtbuf-proto-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-scala-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-transport-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/hawtjni-runtime-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jasypt-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-6.1.26.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-6.1.26.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-2.1-6.1.14.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-api-2.1-6.1.14.jar"/>
+	<classpathentry kind="lib" path="lib/jsr305-1.3.9.jar"/>
+	<classpathentry kind="lib" path="lib/kahadb-5.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/leveldb-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/leveldb-api-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/leveldbjni-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/leveldbjni-linux32-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/leveldbjni-linux64-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/leveldbjni-osx-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="lib/mqtt-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/org.osgi.core-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/scala-library-2.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-2.5-20081211.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-2.5-6.1.14.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/snappy-java-1.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/spring-aop-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-asm-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-beans-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-context-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-core-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-expression-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring-jms-3.0.6.RELEASE.jar" sourcepath="E:/java/maven/repository.m3/org/springframework/spring-jms/3.0.6.RELEASE/spring-jms-3.0.6.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="lib/spring-tx-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/QuotationDomain.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

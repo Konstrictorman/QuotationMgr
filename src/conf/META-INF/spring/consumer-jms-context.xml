@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jms="http://www.springframework.org/schema/jms"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+  <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+    p:brokerURL="tcp://localhost:61616" />
+  
+  <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+    <constructor-arg value="QCotizaciones" />
+  </bean>
+    
+  <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+    p:connectionFactory-ref="connectionFactory"
+    p:defaultDestination-ref="destination" />
+  
+  
+  <bean id="messageDelegate" 
+    class="org.springframework.jms.listener.adapter.MessageListenerAdapter" 
+    p:defaultListenerMethod="handleMessage">
+    <constructor-arg>
+      <bean class="com.wtf.broker.jms.listener.AsyncReceiverQCotizaciones" />
+    </constructor-arg>
+  </bean>
+  
+    <bean id="messageDelegate1" 
+    class="org.springframework.jms.listener.adapter.MessageListenerAdapter" 
+    p:defaultListenerMethod="processMessage">
+    <constructor-arg>
+      <bean class="com.wtf.broker.jms.listener.AsyncReceiverQSolicitudes" />
+    </constructor-arg>
+  </bean>
+  
+  <!-- 
+    This is the Spring DefaultMessageListenerContainer (DMLC). All default values 
+    for the DMLC are used except for concurrency; By default the DMLC knows to use the 
+    bean whose name is connectionFactory.
+  -->
+  <jms:listener-container concurrency="1-1">
+    <jms:listener destination="QCotizaciones" ref="messageDelegate" />
+  
+    <jms:listener destination="QSolicitudes" ref="messageDelegate1" />
+    
+  </jms:listener-container>
+
+</beans>
