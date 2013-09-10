@@ -24,7 +24,7 @@ public class AsyncReceiverQCotizaciones  {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/producer-notificaciones-jms-context.xml", ProducerApp.class);
 		MessageProducerNot producer = (MessageProducerNot) context.getBean("messageProducer");
-        LOG.info("Enviando mensajes ");
+        LOG.info("Enviando mensaje a QNotificaiones");
         producer.sendMessages(mensaje);
 	}
 

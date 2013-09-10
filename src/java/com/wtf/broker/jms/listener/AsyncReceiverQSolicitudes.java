@@ -31,7 +31,7 @@ public class AsyncReceiverQSolicitudes  {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/producer-jms-context.xml", ProducerApp.class);
         SimpleMessageProducer producer = (SimpleMessageProducer) context.getBean("messageProducer");
-        LOG.info("Enviando mensajes a al tema");
+        LOG.info("Enviando mensajes a los proveedores");
         producer.sendMessages(solicitud);
         
 	}
