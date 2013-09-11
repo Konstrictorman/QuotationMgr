@@ -24,6 +24,11 @@ public class SimpleMessageProducer {
 
 	public void sendMessages(Serializable mensaje) throws JMSException {
 		jmsTemplate.convertAndSend(mensaje);
-		LOG.info("enviando mensaje....");      
+		LOG.info("enviando mensaje a ZAPATOS....");      
+    }
+	
+	public void sendMessages(String destino, Serializable mensaje) throws JMSException {
+		jmsTemplate.convertAndSend(destino,mensaje);
+		LOG.info("enviando mensaje a tema {}" , destino);      
     }
 }

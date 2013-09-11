@@ -192,7 +192,7 @@ public class GestorCotizaciones {
         ObjectMapper jsonMapper = new ObjectMapper();
         return jsonMapper.writeValueAsString(object);
     }
-     
+
     public static void main(String[] args) {
         GestorCotizaciones gc = getInstance();
         gc.initGeneralItems();
