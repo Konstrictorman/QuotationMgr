@@ -4,6 +4,8 @@
  */
 package com.wtf.quotation;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -11,6 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.wtf.quotation.domain.Cotizacion;
 import com.wtf.quotation.domain.DetalleCotizacion;
@@ -173,10 +179,30 @@ public class GestorCotizaciones {
         return sc;
     }
     
-    
+    /**
+    * Convert object to JSON String 
+    * @param object
+    * @return
+    * @throws JsonGenerationException
+    * @throws JsonMappingException
+    * @throws IOException
+    */
+    public static String fromJavaToJson(Serializable object)
+    	throws JsonGenerationException, JsonMappingException, IOException {
+        ObjectMapper jsonMapper = new ObjectMapper();
+        return jsonMapper.writeValueAsString(object);
+    }
+     
     public static void main(String[] args) {
         GestorCotizaciones gc = getInstance();
         gc.initGeneralItems();
+        
+        try {
+			fromJavaToJson(gc.getSolicitud(1));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         
         SolicitudCotizacion sc = new SolicitudCotizacion(1);
         Item i1 = GestorCotizaciones.generalItems.get(2);
