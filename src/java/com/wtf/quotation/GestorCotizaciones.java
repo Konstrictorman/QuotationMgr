@@ -4,6 +4,7 @@
  */
 package com.wtf.quotation;
 
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -36,7 +38,7 @@ public class GestorCotizaciones {
     }
     
     private static GestorCotizaciones instance;
-    //private static Logger log = Logger.getLogger(GestorCotizaciones.class.getName());
+    private static Logger log = Logger.getLogger(GestorCotizaciones.class.getName());
     public static List<Item> generalItems = new ArrayList<Item>();
     private Map<SolicitudCotizacion, List<Cotizacion>> solicitudes;
     
@@ -51,8 +53,7 @@ public class GestorCotizaciones {
         return instance;
     }
     
-    @SuppressWarnings("rawtypes")
-	public void registrarSolicitud(SolicitudCotizacion solicitud) {
+    public void registrarSolicitud(SolicitudCotizacion solicitud) {
         List cotizaciones = new ArrayList<Cotizacion>();
         solicitudes = new TreeMap<SolicitudCotizacion, List<Cotizacion>>();
         solicitudes.put(solicitud, cotizaciones);        
@@ -77,6 +78,7 @@ public class GestorCotizaciones {
     
     public SolicitudCotizacion cerrarSolicitud(int id) throws Exception {
         SolicitudCotizacion solicitud = getSolicitudCotizacionById(id);
+        Proveedor proveedor = null;
         if (solicitud == null) {
             throw new IllegalArgumentException("No existe solicitud con id: "+id);
         }
@@ -91,14 +93,15 @@ public class GestorCotizaciones {
             int idDetalleSolicitud = dsc.getIdDetalleSolicitudCotizacion();
             List<DetalleCotizacion> detallesCotizacion = new ArrayList<DetalleCotizacion>();            
             Iterator<Cotizacion> itx = cotizaciones.iterator();
-            while (itx.hasNext()){
+            while (itx.hasNext()){                
                 Cotizacion cotizacion = itx.next();
+                proveedor = cotizacion.getProveedor();
                 DetalleCotizacion dc = cotizacion.getDetalleCotizacionById(idDetalleSolicitud);
                 if (dc != null) {
                     detallesCotizacion.add(dc);
                 }
             }
-            optimize(dsc, detallesCotizacion);
+            optimize(dsc, detallesCotizacion, proveedor);
             solicitud.setOpen(false);
         }
         
@@ -119,18 +122,17 @@ public class GestorCotizaciones {
         return solicitud;
     }
     
-    private void optimize(DetalleSolicitudCotizacion dsc, List<DetalleCotizacion> detalles) {
+    private void optimize(DetalleSolicitudCotizacion dsc, List<DetalleCotizacion> detalles, Proveedor proveedor) {
         if (detalles == null || detalles.isEmpty()) {
             return;
         }
         DetalleCotizacion detalleMinimo = Collections.min(detalles);
         dsc.setPrice(detalleMinimo.getPrice()*dsc.getQuantity());
         dsc.setUnitPrice(detalleMinimo.getPrice());
-        dsc.setProveedor(detalleMinimo.getCotizacion().getProveedor());
+        dsc.setProveedor(proveedor);
     }
     
     private void initGeneralItems() {
-    	generalItems.clear();
         generalItems.add(new Item(101, "Botas diélectricas", 100, "RF:AD522"));
         generalItems.add(new Item(102, "Botas industriales", 100, "RF:DYX87"));
         generalItems.add(new Item(103, "Botas militares", 100, "RF:RHS53"));
@@ -180,29 +182,31 @@ public class GestorCotizaciones {
     }
     
     /**
-    * Convert object to JSON String 
-    * @param object
-    * @return
-    * @throws JsonGenerationException
-    * @throws JsonMappingException
-    * @throws IOException
-    */
-    public static String fromJavaToJson(Serializable object)
-    	throws JsonGenerationException, JsonMappingException, IOException {
-        ObjectMapper jsonMapper = new ObjectMapper();
-        return jsonMapper.writeValueAsString(object);
-    }
+     * Convert object to JSON String 
+     * @param object
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+     public static String fromJavaToJson(Serializable object)
+     	throws JsonGenerationException, JsonMappingException, IOException {
+         ObjectMapper jsonMapper = new ObjectMapper();
+         return jsonMapper.writeValueAsString(object);
+     }
 
-    public static void main(String[] args) {
-        GestorCotizaciones gc = getInstance();
-        gc.initGeneralItems();
-        
-        try {
-			fromJavaToJson(gc.getSolicitud(1));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+     public static void main(String[] args) {
+         GestorCotizaciones gc = getInstance();
+         gc.initGeneralItems();
+         
+         try {
+         	String mensaje= fromJavaToJson(gc.getSolicitud(1));
+         	System.out.println(mensaje);
+ 		} catch (Exception e1) {
+ 			// TODO Auto-generated catch block
+ 			e1.printStackTrace();
+ 		}
+         
         
         SolicitudCotizacion sc = new SolicitudCotizacion(1);
         Item i1 = GestorCotizaciones.generalItems.get(2);
@@ -250,7 +254,7 @@ public class GestorCotizaciones {
             SolicitudCotizacion sol = gc.cerrarSolicitud(sc.getIdSolicitudCotizacion());
             System.out.println(sol.toString());
         } catch (Exception e) {
-            //log.error(e.getMessage());
+            log.error(e.getMessage());
             e.printStackTrace();
             System.out.println(e.getMessage());
         }

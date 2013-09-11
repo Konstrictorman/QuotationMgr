@@ -1,7 +1,11 @@
 package com.wtf.broker.jms.listener;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -24,8 +28,23 @@ public class AsyncReceiverQCotizaciones  {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/producer-notificaciones-jms-context.xml", ProducerApp.class);
 		MessageProducerNot producer = (MessageProducerNot) context.getBean("messageProducer");
-        LOG.info("Enviando mensaje a QNotificaiones");
-        producer.sendMessages("");
+		LOG.info("Enviando mensaje a QNotificaiones");
+		producer.sendMessages(fromJavaToJson(mensaje));
 	}
+
+	/**
+	 * Convert object to JSON String 
+	 * @param object
+	 * @return
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public String fromJavaToJson(Serializable object)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper jsonMapper = new ObjectMapper();
+		return jsonMapper.writeValueAsString(object);
+	}
+
 
 }
