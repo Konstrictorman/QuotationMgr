@@ -32,7 +32,7 @@ public class ProducerApp {
     public static void main(String[] args) throws JMSException {
     	ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/producer-jms-context.xml", ProducerApp.class);
         SimpleMessageProducer producer = (SimpleMessageProducer) context.getBean("messageProducer");
-        LOG.info("Enviando mensajes a al tema");
+        LOG.info("Enviando mensajes al tema");
         producer.sendMessages("CAMISAS", new HashMap());
     }
     

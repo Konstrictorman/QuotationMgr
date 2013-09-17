@@ -30,7 +30,7 @@ public class MessageProducerNot {
 		jmsTemplate.send(new MessageCreator() {
             public Message createMessage(Session session) throws JMSException {
                 TextMessage message = session.createTextMessage(mensaje); 
-                LOG.info("Sending message xml '{}'", mensaje);
+                LOG.info("Sending message json '{}'", mensaje);
                 return message;
             }
         });
